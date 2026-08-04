@@ -1,0 +1,30 @@
+# Goal : build the image  for DEVBOARD  Frontend and push  it to docker Hub 
+name: CI
+
+on:
+    push:
+      branches: [master]
+      
+
+jobs:
+     build-and-push:
+       runs-on: ubuntu-latest
+       steps:
+# Downloading the code form  repository to virtual server created by github action
+         - name: Downloading the code 
+           uses: actions/checkout@v7
+# here we try to login in docker hub  account 
+         - name: login in to docker hub 
+           uses: docker/login-action@4
+           with: 
+             username: ${{ vars.DOCKERHUB_USERNAME }}
+             password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+             
+             
+
+       
+         
+    
+
+     
