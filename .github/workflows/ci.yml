@@ -19,6 +19,12 @@ jobs:
            with: 
              username: ${{ vars.DOCKERHUB_USERNAME }}
              password: ${{ secrets.DOCKERHUB_TOKEN }}
+# here we try to  push the builded image to own docker  hub acoount
+         - name: Build and push
+           uses: docker/build-push-action@v7
+           with:
+             push: true
+             tags: user/app:latest
 
              
              
