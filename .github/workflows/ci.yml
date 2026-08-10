@@ -54,7 +54,7 @@ jobs:
             username: ${{ vars.DOCKER_USERNAME }}
             password: ${{ secrets.DOCKER_PASSWORD }}
         - name: Build and push Docker image
-          working-directory: ./backend
+          working-directory: ./backend/Dockerfile
           run: |
             docker build -t ${{ vars.DOCKER_USERNAME }}/devboard-backend:latest .
             docker push ${{ vars.DOCKER_USERNAME }}/devboard-backend:latest
