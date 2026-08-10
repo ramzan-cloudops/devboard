@@ -43,7 +43,7 @@ jobs:
           working-directory: ./backend
           run: go mod tidy
         - name: Run golangci-lint
-          uses: golangci/golangci-lint-action@v6
+          uses: backend/golangci-lint-action@v6 
           with:
           # Optional: specify the exact version of the linter to avoid breaking changes
             version: v1.60
