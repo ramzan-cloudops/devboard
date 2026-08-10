@@ -42,9 +42,11 @@ jobs:
         - name: Install dependencies
           working-directory: ./backend
           run: go mod tidy
-        - name: Run lint
-          working-directory: ./backend
-          run: golangci-lint run
+        - name: Run golangci-lint
+          uses: golangci/golangci-lint-action@v6
+          with:
+          # Optional: specify the exact version of the linter to avoid breaking changes
+            version: v1.60
         - name: Run tests
           working-directory: ./backend
           run: go test ./...
@@ -54,7 +56,7 @@ jobs:
             username: ${{ vars.DOCKER_USERNAME }}
             password: ${{ secrets.DOCKER_PASSWORD }}
         - name: Build and push Docker image
-          working-directory: ./backend/Dockerfile
+          working-directory: ./backend
           run: |
             docker build -t ${{ vars.DOCKER_USERNAME }}/devboard-backend:latest .
             docker push ${{ vars.DOCKER_USERNAME }}/devboard-backend:latest
