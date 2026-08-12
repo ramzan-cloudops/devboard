@@ -31,7 +31,6 @@ jobs:
         
       - name: Pull and deploy Docker images
         run: |
-            docker-compose pull
-            docker-compose up -d 
+            docker compose pull
+            docker compose up -d 
     
-            
