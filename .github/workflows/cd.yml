@@ -1,0 +1,37 @@
+# Goal : Deploy the application to the production environment on self-hosted runners when a new release is created.
+# deploye the ci built image from ci steps  once the ci is successful and a new release is created.
+
+name: CD Deployment
+
+on:
+  workflow_run:
+    workflows: ["CI"]  # Must exactly match the 'name:' of your CI workflow
+    types:
+      - completed
+    branches:
+      - master  # Ensure this matches the branch you want to trigger on
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    # CRITICAL: This condition ensures it only runs if the CI workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+      - name: copy docker-compose.yml to the server
+        run: cp .env.example .env 
+# here we login to docker hub to pull the latest image built in the ci workflow and deploy it to the production environment using docker-compose
+      - name: docker login
+        uses: docker/login-action@v4
+        with:
+            username: ${{ vars.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }} 
+        
+      - name: Pull and deploy Docker images
+        run: |
+            docker-compose pull
+            docker-compose up -d 
+    
+            
