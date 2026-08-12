@@ -42,7 +42,7 @@ jobs:
                 go-version: '1.22'
                 go-version-file: go.mod
                 cache-dependency-path: go.sum
-                #cache: false        Disable setup-go cache to prevent conflicts with golangci-lint cache
+                #cache: false   Disable setup-go cache to prevent conflicts with golangci-lint cache
 
             - name: Run golangci-lint
               uses: golangci/golangci-lint-action@v6
