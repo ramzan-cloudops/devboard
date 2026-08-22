@@ -29,11 +29,15 @@ jobs:
                         **/go.mod
             - name: Run Go Formater
               #run: go fmt ./...
+              env:
+                GOTOOLCHAIN: auto
               run: go fmt
 
               working-directory:  backend
             - name: Run go vet
               #run: go vet ./...
+              env:
+                GOTOOLCHAIN: auto
               run: go vet 
 
               working-directory:  backend
