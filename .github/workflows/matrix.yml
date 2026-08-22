@@ -31,13 +31,13 @@ jobs:
               #run: go fmt ./...
               env:
                 GOTOOLCHAIN: auto
-              run: go fmt
+              run: go fmt ./...
 
               working-directory:  backend
             - name: Run go vet
               #run: go vet ./...
               env:
                 GOTOOLCHAIN: auto
-              run: go vet 
+              run: go vet  
 
               working-directory:  backend
