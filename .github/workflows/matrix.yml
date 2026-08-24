@@ -3,7 +3,8 @@
 name: go linter
 
 on:
-    workflow_dispatch
+    schedule:
+        - cron:  '42 10 * * *' # This cron job will run at 9:59 AM Pakistan Time (UTC+5) every day
 
 jobs:
     code_build:

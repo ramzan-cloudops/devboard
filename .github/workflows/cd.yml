@@ -13,7 +13,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: devboard-runner
     # CRITICAL: This condition ensures it only runs if the CI workflow succeeded
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     
