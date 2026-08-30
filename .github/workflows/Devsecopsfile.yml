@@ -1,0 +1,12 @@
+#Goal : run end to end devsecops CI pipelines
+name: DevSecOps
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    # here we do  code stage with (shift left) code-quality workflow to check the quality of code before build it
+    
+    code-quality:
+        uses: ./.github/workflows/code-quality.yml

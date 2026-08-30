@@ -4,12 +4,16 @@
 name: CD Deployment
 
 on:
-  workflow_run:
-    workflows: ["CI"]  # Must exactly match the 'name:' of your CI workflow
-    types:
-      - completed
-    branches:
-      - master  # Ensure this matches the branch you want to trigger on
+  workflow_dispatch:
+   
+     # branches:
+    #  - master
+ # workflow_run:
+   # workflows: ["CI"]  # Must exactly match the 'name:' of your CI workflow
+   # types:
+   #   - completed
+         
+            # Ensure this matches the branch you want to trigger on
 
 jobs:
   deploy:

@@ -1,31 +1,46 @@
 name: CI
 on:
-  push:
-    branches:
-      - master
+
+  workflow_dispatch:
+  #push:
+   # branches:
+     # - master
+  
 jobs:
     frontend:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - name: Checkout code
+              uses: actions/checkout@v4
+            
             - name: Set up Node.js
               uses: actions/setup-node@v4
               with:
                 node-version: '20'
+            
             - name: Install dependencies
               working-directory: ./frontend
               run: npm ci
+           
             - name: Run lint
               working-directory: ./frontend
               run: npm run lint
+            
             - name: Run tests
               working-directory: ./frontend
               run: npm test
+            
+            #here i added the workflow-call to the ci.yml file to call the code-quality workflow to check the quality of code before build it 
+            
+            - name: Call code _workflow here 
+              uses: ./.github/workflows/code-quality.yml
+              
             - name: docker login
               uses: docker/login-action@v4
               with:
                 username: ${{ vars.DOCKER_USERNAME }}
                 password: ${{ secrets.DOCKER_PASSWORD }}
+            
             - name: Build and push Docker image
               working-directory: ./frontend
               run: |
@@ -52,6 +67,8 @@ jobs:
             - name: Run tests
               working-directory: ./backend
               run: go test ./...
+            
+              
             - name: docker login
               uses: docker/login-action@v4
               with:

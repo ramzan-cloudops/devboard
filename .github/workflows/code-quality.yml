@@ -1,0 +1,39 @@
+name: Code Quality
+on:
+    workflow_call:
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest 
+    steps:
+        
+        - name: Checkout the code
+          uses: actions/checkout@v7 
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '20' 
+            cache: 'npm' 
+            cache-dependency-path: ./frontend/package-lock.json               
+        - name: Install dependencies
+          run: npm ci  
+          working-directory: ./frontend
+        - name: Run lint
+          run: npm run lint
+          working-directory: ./frontend 
+        
+        - name: Setup Go
+          uses: actions/setup-go@v5
+          with:
+                go-version: '1.22'
+                go-version-file: go.mod
+                cache-dependency-path: go.sum
+                #cache: false   Disable setup-go cache to prevent conflicts with golangci-lint cache
+
+        - name: Run golangci-lint
+          uses: golangci/golangci-lint-action@v6
+          with:
+            version: v1.64  
+            working-directory: ./backend
+            
+          
+      
